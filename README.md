@@ -56,6 +56,16 @@ This project serves as a "Hello World" starting point for cross-platform mobile 
     -   **Migrations**: Uses `@capacitor-community/sqlite` upgrade statements to handle schema versioning automatically.
     -   **CRUD Demo**: The Explore tab allows adding and deleting items with persistence.
 
+4.  **Networking Layer**:
+    -   Centralized Axios instance in `src/services/api.js`.
+    -   Global interceptors for Auth tokens and Error handling (401 redirects).
+    -   Service-based architecture (e.g., `src/services/posts.js`) to decouple UI from API logic.
+
+5.  **Navigation Architecture**:
+    -   **Bottom Tabs**: For primary sections (News, Data, Settings).
+    -   **Side Drawer**: For secondary actions (Account, About, Logout), accessible via the top-left hamburger menu.
+    -   **Top Header**: Persistent app bar that handles safe-area spacing automatically.
+
 ## 🗄️ Database Migrations
 
 The project uses a version-based migration system located in `src/services/sqlite.js`.
