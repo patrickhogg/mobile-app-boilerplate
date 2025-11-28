@@ -53,7 +53,26 @@ This project serves as a "Hello World" starting point for cross-platform mobile 
 
 3.  **SQLite Database**: 
     -   A `DatabaseService` (`src/services/sqlite.js`) is ready to use.
-    -   Handles initialization and basic query execution for offline-first data storage.
+    -   **Migrations**: Uses `@capacitor-community/sqlite` upgrade statements to handle schema versioning automatically.
+    -   **CRUD Demo**: The Explore tab allows adding and deleting items with persistence.
+
+## 🗄️ Database Migrations
+
+The project uses a version-based migration system located in `src/services/sqlite.js`.
+
+To modify the database schema (e.g., add a column):
+1.  Open `src/services/sqlite.js`.
+2.  Increment `DB_VERSION` (e.g., from `1` to `2`).
+3.  Add a new object to the `upgrades` array:
+    ```javascript
+    {
+      toVersion: 2,
+      statements: [
+        `ALTER TABLE users ADD COLUMN phone TEXT;`
+      ]
+    }
+    ```
+4.  The next time the app runs on a user's device, it will detect the version change and apply the new statements.
 
 ## 💻 Development
 
