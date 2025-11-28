@@ -1,0 +1,5 @@
+{
+  "appId": "com.example.capapp",
+  "appName": "Capacitor Boilerplate",
+  "webDir": "dist"
+}
