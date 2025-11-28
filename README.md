@@ -7,111 +7,89 @@ This project serves as a "Hello World" starting point for cross-platform mobile 
 ## 🚀 Tech Stack
 
 - **Framework**: [Vue 3](https://vuejs.org/) (Script Setup)
+- **State Management**: [Pinia](https://pinia.vuejs.org/)
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Routing**: [Vue Router 4](https://router.vuejs.org/)
 - **Mobile Runtime**: [Capacitor 7](https://capacitorjs.com/)
+- **Database**: [Capacitor SQLite](https://github.com/capacitor-community/sqlite)
+- **Native Features**: Haptics, Preferences, Status Bar
 
 ## 📂 Project Structure
 
 ```text
 /cap
-├── android/              # Native Android project (generated)
-├── ios/                  # Native iOS project (generated)
-├── public/               # Static assets
+├── android/              # Native Android project
+├── ios/                  # Native iOS project
 ├── src/
-│   ├── assets/           # Images, icons, and global static files
-│   ├── components/       # Reusable Vue components
-│   ├── router/           # Vue Router configuration
-│   ├── views/            # Main page views (Home, Explore, Profile)
-│   ├── App.vue           # Root component with Bottom Navigation
-│   ├── main.js           # Application entry point
-│   └── style.css         # Global styles & Tailwind configuration
-├── capacitor.config.json # Capacitor settings
-└── vite.config.js        # Vite configuration
+│   ├── services/         # API & Device Wrappers (SQLite, Preferences)
+│   ├── stores/           # Pinia State Stores
+│   ├── views/            # Main page views
+│   ├── App.vue           # Root component
+│   └── main.js           # App Entry & Plugin Setup
 ```
 
-## 🛠 Prerequisites
+## 📦 Key Packages
 
-- **Node.js**: v18+ recommended
-- **Android Studio**: For Android development
-- **Xcode**: For iOS development (macOS only)
+| Package | Purpose |
+| :--- | :--- |
+| `pinia` | State Management |
+| `@capacitor-community/sqlite` | Native Database |
+| `@capacitor/preferences` | Simple Key/Value Storage |
+| `@capacitor/haptics` | Vibration/Feedback |
 
-## 📦 Installation
+## 📱 Features Implemented
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+1.  **Tri-State Dark Mode**: 
+    -   Support for **System**, **Light**, and **Dark** modes.
+    -   Automatically listens to OS changes when in "System" mode.
+    -   Forces native Status Bar styling to match the theme.
+    -   Uses Tailwind v4 custom variants (`style.css`) to ensure reliable switching on native devices.
 
-2. **Initialize Tailwind CSS:**
-   (Already configured in this boilerplate, but if starting fresh ensure `@tailwindcss/postcss` is installed).
+2.  **Native Integration**:
+    -   **Haptics**: Buttons provide tactile feedback on tap.
+    -   **Preferences**: Settings are persisted using `@capacitor/preferences`.
+    -   **Status Bar**: The system status bar adapts its color and style based on the active theme.
 
-## 💻 Development (Web)
+3.  **SQLite Database**: 
+    -   A `DatabaseService` (`src/services/sqlite.js`) is ready to use.
+    -   Handles initialization and basic query execution for offline-first data storage.
 
-Run the app in your browser with hot module replacement (HMR):
+## 💻 Development
 
+Run the app in your browser:
 ```bash
 npm run dev
 ```
+*Note: SQLite features will log a warning in the browser as they require the native environment or the `jeep-sqlite` web adapter.*
 
-## 📱 Mobile Development
+## 🏗 Building & Running on Device
 
-### 1. Initialize Platforms
+We have included convenience scripts to make the mobile workflow faster.
 
-If you haven't already, add the native platforms:
+| Command | Description |
+| :--- | :--- |
+| `npm run android` | Builds web assets, syncs to Android, and opens Android Studio. |
+| `npm run sync:android` | Builds web assets and syncs to Android (without opening Studio). |
+| `npm run ios` | Builds web assets, syncs to iOS, and opens Xcode. |
+| `npm run sync:ios` | Builds web assets and syncs to iOS (without opening Xcode). |
 
-```bash
-# Add Android
-npx cap add android
+### Manual Workflow
 
-# Add iOS (macOS only)
-npx cap add ios
-```
+If you prefer to run commands manually:
 
-### 2. Syncing Changes
-
-Every time you make changes to your Vue code or install a new npm package, you must build the web assets and sync them to the native projects:
-
-```bash
-npm run build
-npx cap sync
-```
-
-### 3. Running on Emulator/Device
-
-**Android:**
-```bash
-npx cap open android
-```
-*This opens Android Studio. Wait for Gradle sync to finish, then press the "Run" (Play) button.*
-
-**iOS:**
-```bash
-npx cap open ios
-```
-*This opens Xcode. Select your simulator/device and press the "Play" button.*
-
-## 🏗 Building for Production
-
-1. **Build the web assets:**
+1. **Build & Sync:**
    ```bash
    npm run build
-   ```
-   *Output is generated in the `dist/` directory.*
-
-2. **Update native projects:**
-   ```bash
    npx cap sync
    ```
 
-3. **Compile Native Binary:**
-   - **Android**: Use "Build > Generate Signed Bundle / APK" in Android Studio.
-   - **iOS**: Use "Product > Archive" in Xcode.
+2. **Run on Android:**
+   ```bash
+   npx cap open android
+   ```
 
-## 🎨 Features & Customization
-
-- **Safe Area Handling**: `style.css` includes CSS variables (`--sat`, `--sab`) to handle notches and home indicators automatically.
-- **Mobile Navigation**: A fixed bottom tab bar is implemented in `App.vue`.
-- **Transitions**: Basic route transitions are enabled in `App.vue`.
-- **Tailwind v4**: Uses the latest Tailwind configuration via CSS imports in `style.css`.
+3. **Run on iOS:**
+   ```bash
+   npx cap open ios
+   ```

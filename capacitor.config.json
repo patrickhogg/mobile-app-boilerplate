@@ -1,5 +1,12 @@
 {
   "appId": "com.example.capapp",
   "appName": "Capacitor Boilerplate",
-  "webDir": "dist"
+  "webDir": "dist",
+  "backgroundColor": "#f8fafc",
+  "android": {
+    "backgroundColor": "#f8fafc"
+  },
+  "ios": {
+    "backgroundColor": "#f8fafc"
+  }
 }

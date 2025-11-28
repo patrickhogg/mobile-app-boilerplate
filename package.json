@@ -6,13 +6,25 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "android": "vite build && npx cap sync android && npx cap open android",
+    "sync:android": "vite build && npx cap sync android",
+    "ios": "vite build && npx cap sync ios && npx cap open ios",
+    "sync:ios": "vite build && npx cap sync ios"
   },
   "dependencies": {
+    "@capacitor-community/sqlite": "^7.0.2",
     "@capacitor/android": "^7.4.4",
     "@capacitor/cli": "^7.4.4",
     "@capacitor/core": "^7.4.4",
+    "@capacitor/dialog": "^7.0.2",
+    "@capacitor/haptics": "^7.0.2",
     "@capacitor/ios": "^7.4.4",
+    "@capacitor/keyboard": "^7.0.3",
+    "@capacitor/preferences": "^7.0.2",
+    "@capacitor/status-bar": "^7.0.3",
+    "@capacitor/toast": "^7.0.2",
+    "pinia": "^3.0.4",
     "vue": "^3.5.24",
     "vue-router": "^4.6.3"
   },
