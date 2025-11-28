@@ -4,6 +4,8 @@ A modern, high-performance mobile application boilerplate built with **Vue 3**, 
 
 This project serves as a "Hello World" starting point for cross-platform mobile development (iOS & Android) while maintaining a standard web development workflow.
 
+> **📘 Developer Guide:** Please read [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed coding standards, best practices, and the "Golden Path" for adding new features.
+
 ## 🚀 Tech Stack
 
 - **Framework**: [Vue 3](https://vuejs.org/) (Script Setup)
