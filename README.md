@@ -66,6 +66,11 @@ This project serves as a "Hello World" starting point for cross-platform mobile 
     -   **Side Drawer**: For secondary actions (Account, About, Logout), accessible via the top-left hamburger menu.
     -   **Top Header**: Persistent app bar that handles safe-area spacing automatically.
 
+6.  **Network Monitoring**:
+    -   Real-time connection status tracking using `@capacitor/network`.
+    -   Global "Offline" banner that slides down when internet access is lost.
+    -   State managed via `src/stores/network.js`.
+
 ## 🗄️ Database Migrations
 
 The project uses a version-based migration system located in `src/services/sqlite.js`.

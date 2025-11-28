@@ -3,13 +3,16 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Dialog } from '@capacitor/dialog'
 import { useSettingsStore } from './stores/settings'
+import { useNetworkStore } from './stores/network'
 
 const settings = useSettingsStore()
+const network = useNetworkStore()
 const router = useRouter()
 const isMenuOpen = ref(false)
 
-onMounted(() => {
-  settings.loadSettings()
+onMounted(async () => {
+  await settings.loadSettings()
+  await network.initialize()
 })
 
 const toggleMenu = () => {
@@ -54,8 +57,15 @@ const doLogout = async () => {
 <template>
   <div class="flex flex-col h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
     
+    <!-- Offline Banner -->
+    <transition name="slide-down">
+      <div v-if="!network.isConnected" class="fixed top-0 left-0 right-0 bg-red-600 text-white text-xs font-bold text-center py-1 z-[70] pt-[env(safe-area-inset-top)] mt-[env(safe-area-inset-top)] shadow-md">
+        <span>You are offline. Check your connection.</span>
+      </div>
+    </transition>
+
     <!-- Top Header -->
-    <header class="h-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center px-4 justify-between z-40 pt-[env(safe-area-inset-top)] mt-[env(safe-area-inset-top)]">
+    <header class="h-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center px-4 justify-between z-40 pt-[env(safe-area-inset-top)] mt-[env(safe-area-inset-top)] transition-transform duration-300" :class="{ 'translate-y-6': !network.isConnected }">
       <button @click="toggleMenu" class="p-2 -ml-2 text-slate-600 dark:text-slate-300 rounded-lg active:bg-slate-100 dark:active:bg-slate-800">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       </button>
@@ -176,3 +186,12 @@ const doLogout = async () => {
   transform: translateX(-100%);
 }
 </style>
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: transform 0.3s ease-out;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translateY(-100%);
+}
