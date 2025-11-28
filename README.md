@@ -84,6 +84,38 @@ To modify the database schema (e.g., add a column):
     ```
 4.  The next time the app runs on a user's device, it will detect the version change and apply the new statements.
 
+## 🌐 Networking & API
+
+The project uses a scalable **Service Layer** architecture for API interactions, located in `src/services/`.
+
+### 1. The Core Client (`api.js`)
+`src/services/api.js` exports a pre-configured Axios instance. Use this instead of `axios` directly.
+-   **Base URL**: Configured in one place.
+-   **Interceptors**: Automatically handles attaching tokens (request) and global error handling (response), such as redirecting to login on 401.
+
+### 2. Service Modules (`posts.js`, `user.js`)
+Instead of making API calls inside Vue components, organize them into service files.
+
+**Example (`src/services/posts.js`):**
+```javascript
+import api from './api';
+
+export const PostService = {
+  async getAll() {
+    // Uses the configured instance
+    const response = await api.get('/posts'); 
+    return response.data;
+  }
+};
+```
+
+**Usage in Component:**
+```javascript
+import { PostService } from '../services/posts';
+
+const data = await PostService.getAll();
+```
+
 ## 💻 Development
 
 Run the app in your browser:
